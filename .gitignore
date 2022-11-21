@@ -1,0 +1,23 @@
+/.env
+
+# Node artifact files
+node_modules/
+dist/
+
+# Log files
+*.log
+
+# JetBrains IDE
+.idea/
+
+# Unit test reports
+TEST*.xml
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
