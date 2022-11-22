@@ -4,12 +4,12 @@ FROM node:18.12.1-slim
 
 # A directory within the virtualized Docker environment
 # Becomes more relevant when using Docker Compose later
-WORKDIR /usr/src/app
+WORKDIR /usr/src/api
 
 #ENV PATH ./app/node_modules/.bin:$PATH
 
 # Copies package.json and package-lock.json to Docker environment
-COPY ./app/package*.json ./
+COPY ./package*.json ./
 
 # Installs all node packages
 #RUN npm install --silent
@@ -18,10 +18,10 @@ RUN npm install
 # RUN npm ci --only=production
 
 ## Copies everything over to Docker environment
-COPY ./app/* ./
+COPY . .
 
 # Uses port which is used by the actual application
 EXPOSE 5000
 
 # Finally runs the application
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]

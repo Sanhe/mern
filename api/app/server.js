@@ -1,10 +1,11 @@
 'use strict';
 
+const dotenv = require('dotenv');
 const express = require('express');
 
-// Constants
-const PORT = 5000;
-const HOST = '0.0.0.0';
+dotenv.config({ path: './.env' });
+const port = process.env.PORT;
+const host = process.env.HOST;
 
 // App
 const app = express();
@@ -12,6 +13,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.listen(PORT, HOST, () => {
-    console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(port, host, () => {
+    console.log(`Running on ${host}:${port}`);
 });
