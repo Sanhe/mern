@@ -24,4 +24,4 @@ COPY ./app/* ./
 EXPOSE 5000
 
 # Finally runs the application
-CMD [ "node", "server.js" ]
+CMD [ "npm", "start" ]

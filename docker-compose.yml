@@ -22,7 +22,7 @@ services:
 #        links:
 #            - db
         ports:
-            - '4690:5001'
+            - '4690:5000'
         volumes:
             - ./api/app:/usr/src/app
             - /usr/src/app/node_modules

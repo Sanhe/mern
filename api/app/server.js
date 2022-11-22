@@ -1,17 +1,17 @@
 'use strict';
 
-const express = require('express');
+const dotenv = require('dotenv');
+const http = require('http');
 
-// Constants
-const PORT = 5000;
-const HOST = '0.0.0.0';
+dotenv.config({ path: './.env' });
 
-// App
-const app = express();
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+const port = process.env.PORT;
+const host = process.env.HOST;
+
+const server = http.createServer((req, res) => {
+    res.end('Hello from the server');
 });
 
-app.listen(PORT, HOST, () => {
-    console.log(`Running on http://${HOST}:${PORT}`);
+server.listen(port, host, () => {
+    console.log(`Listening to request on ${host}:${port}`);
 });
