@@ -1,37 +1,40 @@
 version: '3.6'
 
 services:
-#    db:
-#        image: mongo
-#        container_name: db
-#        ports:
-#            - '27017:27017'
-#        volumes:
-#            - ./data/mongo:/data/db
-#        environment:
-#            - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-#            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-#        command: mongod
-#        networks:
-#            - app-network
+    db:
+        image: ${DOCKER_REGISTRY}/mysql:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_USER=${DATABASE_USER}
+            - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+        volumes:
+            - db-data:/var/lib/mysql
+            # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+            # - ./api/docker/db/data:/var/lib/postgresql/data:rw
+        ports:
+            - '127.0.0.1:3335:3306/tcp'
 
     api:
         build:
             context: ./api
             dockerfile: ./Dockerfile
-#        links:
-#            - db
+        links:
+            - db
         ports:
             - '4690:5000'
         volumes:
             - ./api/app:/usr/src/api/app
             - /usr/src/api/node_modules
         working_dir: /usr/src/api
-#        depends_on:
-#            - db
+        depends_on:
+            - db
         networks:
             - app-network
 
 networks:
     app-network:
         driver: bridge
+
+volumes:
+    db-data: { }
